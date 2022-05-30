@@ -1,11 +1,8 @@
 import {Router, Request, Response} from 'express'
+import Login from '../controllers/MysqlFunctions/Login';
 
 const router:Router = Router();
 
 export default router
-.get('/', ( req:Request, res:Response)=> {
-
-    
-    return res.status(200).json({msg:"working"})
-} )
+.post('/Login', Login )
 

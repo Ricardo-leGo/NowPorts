@@ -15,6 +15,7 @@
   import bodyParser from 'body-parser';
 import { decodeToken, VerifyToken } from './Lib/JsonWebToken';
 import routes from './routes';
+import Register from './routes/Register';
   
   const getUser     = (token:string):any    => decodeToken( token );
   const verifyToken = (token:string):string => VerifyToken( token );
@@ -52,9 +53,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
   
-  server.applyMiddleware({ app, path: '/graphql' });
 
+  server.applyMiddleware({ app, path: '/api/graphql' });
+  
   app.use('/', routes );
+  app.use( "/Auth", Register );
 
   const httpServer = createServer( app );
 
@@ -62,7 +65,7 @@ app.use(bodyParser.json());
        Number(process.env.PORT)
       ,
       (): void => console.log(`\n
-      Graphql está listo en  http://localhost:${PORT}/graphql
+      Graphql está listo en  http://localhost:${PORT}/api/graphql
       \n
       Express está listo en: /
       `))

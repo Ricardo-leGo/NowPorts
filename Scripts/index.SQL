@@ -11,7 +11,8 @@ CREATE TABLE Usuarios(
     CreatedAt timestamp DEFAULT current_timestamp,
     Pass text not null,
     Description text,	
-    IsRegistered BIT NOT NULL DEFAULT 0
+    IsRegistered BIT NOT NULL DEFAULT 0,
+    Correo varchar(120) not null
     
 );
 
