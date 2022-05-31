@@ -1,27 +1,55 @@
 
 import { Request, Response} from 'express';
-import queryFunction from '../../Database/Mysql';
+import connection from '../../Database/Mysql';
+import { IUser } from '../Interfaces';
+import { HashPass } from '../../Lib/bcrypt';
 
 const register = async ( req:Request, res:Response)=>  {
     
     const {
         username    ,
         Lastname    ,
-        email       ,
         CodeArea    ,
         Phone       ,
         CP          ,
         Pass        ,
-        ConfirmPas23,
         Correo
     } = await req.body;
+
+        const query  = `select * from legorica_Nowports.Usuarios where Correo='${Correo}'`;
+
+    connection.connect();
+    connection.query(
+        query, 
+        (error, [results], fields) => {
+        if(error)console.log("error" , error, "error");
+
+        try {
+            give( JSON?.parse(JSON?.stringify(results))  )
+
+        } catch (error) {
+            give({});
+        }
+    } );
+
     
-    const query  = `select * from legorica_Nowports.Usuarios where Correo='${Correo}' `
-    const givemeData = (data:any) => { console.log( data, "==!!!!=" ); return data };
+    async function give( json:Partial<IUser> ){
+        if( json.Correo === Correo ){
 
-    const respQuery = await queryFunction(query, "null" ,givemeData);
+            return res.status(200).json({ msg:"Por favor usa otro correo", status:false, goto:"/" });
+        }else{
+            connection.query(
+                `insert into legorica_Nowports.Usuarios ( UserName , LastName, CodeArea, Phone, Activo, CP, Comments,  Pass, Description, Correo ) 
+                values ( "${username}", "${Lastname}", "${CodeArea}", "${Phone}", false , "${CP}","", "${ await HashPass(Pass) }", "", "${Correo}" );`,
+                function(error, results, fields){
+                    if(error)console.log("error" , error, "error");
+                    return res.status(200).json({ msg:"Bienvenido", status:true, goto:"Login" });
+                }
+            )
+        }
 
-    return res.status(200).json({msg:"working"});
+        return connection.end();
+    };
 }
 
 
