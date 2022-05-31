@@ -6,10 +6,10 @@ const conn  ={
         {
             host: String(process.env.HOSTMYSQL),
             user: String(process.env.USERMYSQL),
+            database: String(process.env.DBNAMEMYSQL),
             password: String(process.env.MYSQLPASS)
 
         },
-    listPerPage: 10,
     };
 
 export default  mysql.createConnection( conn.db );
