@@ -1,0 +1,55 @@
+back-np/node_modules
+front-np/node_modules
+
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+back-np/node_modules
+back-np/.pnp
+back-np/pnp.js
+
+back-np/# testing
+back-np//coverage
+
+back-np/# production
+back-np//build
+
+back-np/# misc
+back-np/.DS_Store
+back-np/.env.local
+back-np/.env.development.local
+back-np/.env.test.local
+back-np/.env.production.local
+
+back-np/npm-debug.log*
+back-np/yarn-debug.log*
+back-np/yarn-error.log*
+
+
+
+# dependencies
+front-np/node_modules
+front-np/.pnp
+front-np/pnp.js
+
+front-np/# testing
+front-np//coverage
+
+front-np/# production
+front-np/build
+
+front-np/# misc
+front-np/.DS_Store
+front-np/.env.local
+front-np/.env.development.local
+front-np/.env.test.local
+front-np/.env.production.local
+
+front-np/npm-debug.log*
+front-np/yarn-debug.log*
+front-np/yarn-error.log*
+
+
+.env
+
+.DS_Store
