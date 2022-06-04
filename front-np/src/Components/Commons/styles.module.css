@@ -1,0 +1,32 @@
+.containerDirary{
+height: 70vh;
+display: flex;
+justify-content: space-between;
+width: 90%;
+margin: 0 auto;
+}
+
+.containerDetails{
+    width: 100%;
+    border: solid yellow;
+}
+
+
+
+.ContainerUsers{
+    height:60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+
+.contentEachUser{
+    width:95%;
+}
+
+.containerSlide{
+    height: 95%;
+    width: auto;
+}

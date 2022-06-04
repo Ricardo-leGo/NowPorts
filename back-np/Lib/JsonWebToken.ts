@@ -1,6 +1,6 @@
 import  Jwt  from "jsonwebtoken";
 
-export const Sign = async (data: string) => Jwt.sign(  data, String( process.env.jwtSecret ),{ expiresIn: "2hr" });
+export const Sign = async (data: object) => Jwt.sign(  data, String( process.env.jwtSecret ),{ expiresIn: "2hr" });
 export const decodeToken = (token:string) =>Jwt.decode(token);
 export const VerifyToken  = (token:string): string => {
     try {

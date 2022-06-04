@@ -2,10 +2,10 @@ import React from 'react'
 
 type Props = {}
 
-const RegisterGql =({}: Props)  => {
+const GraphqlPage =({}: Props)  => {
   return (
     <div>RegisterG</div>
   )
 }
 
-export default RegisterGql;
+export default GraphqlPage;

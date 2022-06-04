@@ -12,4 +12,12 @@ const conn  ={
         },
     };
 
-export default  mysql.createConnection( conn.db );
+
+    const pool =  mysql.createPool( conn.db );
+    pool.getConnection((err, connection) => {
+            if(err)console.log( err.code );
+            if(connection)connection.release()
+    })
+export default pool
+
+

@@ -16,6 +16,7 @@
 import { decodeToken, VerifyToken } from './Lib/JsonWebToken';
 import routes from './routes';
 import Register from './routes/Register';
+import Login from './routes/Login';
   
   const getUser     = (token:string):any    => decodeToken( token );
   const verifyToken = (token:string):string => VerifyToken( token );
@@ -58,6 +59,7 @@ app.use(bodyParser.json());
   
   app.use('/', routes );
   app.use( "/Auth", Register );
+  app.use( "/Auth", Login );
 
   const httpServer = createServer( app );
 

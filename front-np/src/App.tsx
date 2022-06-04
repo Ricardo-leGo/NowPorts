@@ -3,15 +3,22 @@ import { Routes } from 'react-router-dom';
 import './App.css';
 import HomePage from './Pages/Home';
 import { Route } from 'react-router-dom';
-import './App.css';
+import RestPage from './Pages/RestZonePage';
+import { BrowserRouter as Router } from 'react-router-dom';
+
 const  App:FC = () =>
 {
 return ( 
   <>
-      
-      <Routes>
-        <Route path="/" element={ <HomePage/> }/>
-      </Routes>
+      <Router>
+        <Routes>
+          
+          <Route path="/" element={ <HomePage/> }/>
+
+          <Route path="/MysqlApp/Home" element={<RestPage/>}/>
+          
+        </Routes>
+      </Router>
 
   </>
   );

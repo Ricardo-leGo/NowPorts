@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Footer from '../Footer'
 import Header from '../Header'
 import styles  from './styles.module.css';
@@ -26,6 +26,9 @@ const HomeComponent = (props: Props) => {
           setbase(!checked? "Login":'Regisro') 
           setIsLoginPageFunc(!checked);
         };
+
+
+        
   return (
     <>
     <Header/>

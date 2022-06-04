@@ -1,7 +1,7 @@
 
 
 const urlBase = process.env.REACT_APP_URLgql
-
+console.log( "urlBase", urlBase )
 const ownHeaders =  new Headers();
 const getToken =():string => localStorage.getItem(String( process.env.REACT_APP_TokenName)) as string
 

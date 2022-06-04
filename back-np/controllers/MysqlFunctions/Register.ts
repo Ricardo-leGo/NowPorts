@@ -1,6 +1,6 @@
 
 import { Request, Response} from 'express';
-import connection from '../../Database/Mysql';
+import Pool from '../../Database/Mysql';
 import { IUser } from '../Interfaces';
 import { HashPass } from '../../Lib/bcrypt';
 
@@ -18,8 +18,7 @@ const register = async ( req:Request, res:Response)=>  {
 
         const query  = `select * from legorica_Nowports.Usuarios where Correo='${Correo}'`;
 
-    connection.connect();
-    connection.query(
+    Pool.query(
         query, 
         (error, [results], fields) => {
         if(error)console.log("error" , error, "error");
@@ -34,13 +33,15 @@ const register = async ( req:Request, res:Response)=>  {
 
     
     async function give( json:Partial<IUser> ){
+
+        console.log("json", json)
         if( json.Correo === Correo ){
 
             return res.status(200).json({ msg:"Por favor usa otro correo", status:false, goto:"/" });
         }else{
-            connection.query(
+            Pool.query(
                 `insert into legorica_Nowports.Usuarios ( UserName , LastName, CodeArea, Phone, Activo, CP, Comments,  Pass, Description, Correo ) 
-                values ( "${username}", "${Lastname}", "${CodeArea}", "${Phone}", false , "${CP}","", "${ await HashPass(Pass) }", "", "${Correo}" );`,
+                values ( "${username}", "${Lastname}", "${CodeArea}", "${Phone}", true , "${CP}","", "${ await HashPass(Pass) }", "", "${Correo}" );`,
                 function(error, results, fields){
                     if(error)console.log("error" , error, "error");
                     return res.status(200).json({ msg:"Bienvenido", status:true, goto:"Login" });
@@ -48,7 +49,6 @@ const register = async ( req:Request, res:Response)=>  {
             )
         }
 
-        return connection.end();
     };
 }
 

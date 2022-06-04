@@ -3,6 +3,7 @@ import genericPetition from "../../services";
 import { IUser, IGenericReponse } from '../../Layout/Interfaces';
 import  CryptoJS from 'crypto-js';
 import { isBreakOrContinueStatement } from "typescript";
+import { encryptData } from "../../Lib/Crypto";
 
 export const HomeContext =  createContext({});
 
@@ -19,7 +20,7 @@ const  HomeProvider = ({ children }: PropsWithChildren<{}>) => {
     //-----------------------------------Mysql ------------------------------->
 
     const RegistroMysql = async ( Usuario:Partial<IUser> ) => {
-        console.log( Usuario ) 
+        console.log( Usuario, "======" ) 
 
         const resp:IGenericReponse = await genericPetition( "Auth/Register", "POST", Usuario );
 
@@ -38,8 +39,16 @@ const  HomeProvider = ({ children }: PropsWithChildren<{}>) => {
     }
 
 
-    const LoginMysql =  (Usuario:Partial<IUser>) => {
-            console.log( Usuario )
+    const LoginMysql = async (Usuario:Partial<IUser>) => {
+            console.log( Usuario )            
+            const encryptedData = encryptData( Usuario );
+            const resp = await genericPetition( "Auth/Login", "POST", {encryptedData} );
+
+             if( resp.status ){
+                localStorage.setItem(String( process.env.REACT_APP_TokenName ), resp.token);
+                window.location.href = "/MysqlApp/Home";
+            }
+
     }
 
     //-----------------------------------Mysql ------------------------------->
@@ -61,7 +70,7 @@ const  HomeProvider = ({ children }: PropsWithChildren<{}>) => {
 //--------------------Generic∂
 const RegistroSelect = (base:string="", data: Partial<IUser> ) => {
 
-    console.log( data );
+    console.log( data, base );
 
     if(  data.Pass !== data.ConfirmPass)return
 
@@ -74,9 +83,7 @@ const RegistroSelect = (base:string="", data: Partial<IUser> ) => {
 }
 const LoginSelect = (base:string="", data: Partial<IUser> ) => {
 
-    console.log( data );
-
-    if(  data.Pass !== data.ConfirmPass)return
+    console.log( data, base );
 
     if( base === "Mysql"){
         LoginMysql( data )
@@ -104,7 +111,8 @@ const state = {
 
     useEffect(
         () => {
-            genericPetition("/","GET",{} )
+            genericPetition("","GET",{} );
+            localStorage.removeItem( String(process.env.REACT_APP_TokenName) );
         }, 
     []);
 
